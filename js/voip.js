@@ -1,4 +1,4 @@
-var socketIO = io.connect('http://localhost:9000');
+var socketIO = io.connect('https://circles-rtc.herokuapp.com/');
 
 var soundcardSampleRate = null; //Sample rate from the soundcard (is set at mic access)
 var mySampleRate = 12000; //Samplerate outgoing audio (common: 8000, 12000, 16000, 24000, 32000, 48000)
