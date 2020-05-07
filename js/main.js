@@ -22,7 +22,6 @@ $(document).ready(function () {
 
 	onUserDecompressedAudio = function (audioData, userId, sampleRate, bitRate) { //Called when user audiodata coming from the client
 		micctx.fillStyle = "red";
-		micctx.clearRect(0, 0, micaudio.width, micaudio.height);
 		for (var i = 0; i < audioData.length; i++) {
 			micctx.fillRect(i, audioData[i] * 100 + 100, 1, 1);
 		}
