@@ -12,15 +12,12 @@
 	<link rel="stylesheet" href="./css/main.css">
 </head>
 
-<body>
-	<h1>NodeJsVoip</h1>
-	<button id="startBtn">Start Talking</button>
+<div style="display: flex; align-items: center; justify-content: center;flex-direction: column;">
+	<h1 style="display: block;">Circles</h1>
+	<button style="border: 2px solid lightblue;height:4vh; width: 8vw;" id="startBtn">Start Talking</button>
 	connected clients: <span id="clients"></span><br><br>
 	<b>Mic audio</b><br>
-	<canvas style="border: 1px solid;border-radius: 100%;" id="micaudio" width="200" height="200"></canvas><br>
-
-	<b>Incoming audio</b><br>
-	<canvas style="border: 1px solid;" id="incaudio" width="1024" height="200"></canvas>
-</body>
+	<canvas style="display: block;border: 5px solid lightblue;border-radius: 100%;" id="micaudio" width="600" height="600"></canvas><br>
+</div>
 
 </html>
