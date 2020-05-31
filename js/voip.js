@@ -2,7 +2,7 @@ var socketIO = io.connect('https://circles-rtc.herokuapp.com/');
 
 var soundcardSampleRate = null; //Sample rate from the soundcard (is set at mic access)
 var mySampleRate = 12000; //Samplerate outgoing audio (common: 8000, 12000, 16000, 24000, 32000, 48000)
-var myBitRate = 16; //8,16,32 - outgoing bitrate
+var myBitRate = 32; //8,16,32 - outgoing bitrate
 var myMinGain = 6 / 100; //min Audiolvl
 var micAccessAllowed = false; //Is set to true if user granted access
 var chunkSize = 1024;
@@ -78,11 +78,21 @@ upSampleWorker.addEventListener('message', function (e) {
 }, false);
 
 function startTalking() {
+
 	if (hasGetUserMedia()) {
+
+
 		var context = new window.AudioContext || new window.webkitAudioContext;
+
+		//sample rate is the number of samples per second.
 		soundcardSampleRate = context.sampleRate;
-		navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
-		navigator.getUserMedia({ audio: true }, function (stream) {
+
+		console.log('Sample Rate', soundcardSampleRate);
+
+		navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.mediaDevices.getUserMedia);
+		
+		navigator.getUserMedia({ audio: true }, (stream) => {
+
 			micAccessAllowed = true;
 			var liveSource = context.createMediaStreamSource(stream);
 
@@ -98,6 +108,7 @@ function startTalking() {
 			}
 
 			node.onaudioprocess = function (e) {
+
 				var inData = e.inputBuffer.getChannelData(0);
 				var outData = e.outputBuffer.getChannelData(0);
 

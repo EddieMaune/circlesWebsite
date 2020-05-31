@@ -35,7 +35,9 @@ self.addEventListener('message', function (e) {
     // }
 
     if (inDataArrayBuffer != null) {
+
       resample(inDataArrayBuffer, inSampleRate, outSampleRate, outChunkSize, function (resapledData) {
+        
         if (inBitrate == 8) {
           resapledData = mapUint8ToFloat32Array(resapledData);
         } else if (inBitrate == 16) {
