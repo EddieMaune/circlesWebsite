@@ -5,7 +5,7 @@ var mySampleRate = 8000; //Samplerate outgoing audio (common: 8000, 12000, 16000
 var myBitRate = 8; //8,16,32 - outgoing bitrate
 var myMinGain = 6 / 100; //min Audiolvl
 var micAccessAllowed = false; //Is set to true if user granted access
-var chunkSize = 1024;
+var chunkSize = 512;
 
 var downSampleWorker = new Worker('./js/voipWorker.js');
 var upSampleWorker = new Worker('./js/voipWorker.js');
@@ -26,6 +26,7 @@ socketIO.on('connect', function (socket) {
 
 	socketIO.on('innerCircle', function (data) {
 		if (micAccessAllowed) {
+			console.log(data)
 			var audioData = onUserCompressedAudio(data["a"], data["sid"], data["s"], data["b"]);
 			upSampleWorker.postMessage({
 				"inc": true,
