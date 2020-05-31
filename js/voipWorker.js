@@ -128,13 +128,14 @@ function downSample(fromSampleRate, toSampleRate, buffer) {
     outBuffer.push(s(i));
   }
 
-  return outBuffer;
+  return buffer;
+  // return outBuffer;
 }
 
 var sampleBuffer = [];
 function upSample(fromSampleRate, toSampleRate, chunkSize, buffer, callBack) {
   var outLength = buffer.length / (fromSampleRate / toSampleRate);
-  var s = buffer.length > 0 ? Smooth(buffer, { scaleTo: outLength, method: 'cubic', clip: "clamp" }) : [];
+  var s = buffer.length > 0 ? buffer:[];//Smooth(buffer, { scaleTo: outLength, method: 'cubic', clip: "clamp" }) : [];
 
   for (var i = 0; i < outLength; i++) {
     sampleBuffer.push(s(i));
