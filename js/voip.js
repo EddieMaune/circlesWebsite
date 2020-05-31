@@ -17,7 +17,7 @@ var oscillator;
 
 function hasGetUserMedia() {
 	return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
-		navigator.mozGetUserMedia || navigator.msGetUserMedia);
+		navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.mediaDevices.getUserMedia);
 }
 
 socketIO.on('connect', function (socket) {
