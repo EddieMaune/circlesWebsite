@@ -1,7 +1,7 @@
 var socketIO = io.connect('https://circles-rtc.herokuapp.com/');
 
 var soundcardSampleRate = null; //Sample rate from the soundcard (is set at mic access)
-var mySampleRate = 8000; //Samplerate outgoing audio (common: 8000, 12000, 16000, 24000, 32000, 48000)
+var mySampleRate = 12000; //Samplerate outgoing audio (common: 8000, 12000, 16000, 24000, 32000, 48000)
 var myBitRate = 8; //8,16,32 - outgoing bitrate
 var myMinGain = 6 / 100; //min Audiolvl
 var micAccessAllowed = false; //Is set to true if user granted access
@@ -36,7 +36,7 @@ socketIO.on('connect', function (socket) {
 				"socketId": data["sid"],
 				"inSampleRate": data["s"],
 				"inBitRate": data["b"],
-				"p": data["p"]
+				"p": 1 || data["p"]
 			});
 		}
 	});
@@ -60,7 +60,7 @@ downSampleWorker.addEventListener('message', function (e) {
 				"a": audioData, //Audio data
 				"s": mySampleRate,
 				"b": myBitRate,
-				"p": data[1]
+				"p": 1 || data[1]
 			});
 	}
 }, false);
