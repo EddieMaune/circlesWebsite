@@ -26,7 +26,7 @@ socketIO.on('connect', function (socket) {
 
 	socketIO.on('innerCircle', function (data) {
 		if (micAccessAllowed) {
-			console.log(data)
+	
 			var audioData = onUserCompressedAudio(data["a"], data["sid"], data["s"], data["b"]);
 			upSampleWorker.postMessage({
 				"inc": true,

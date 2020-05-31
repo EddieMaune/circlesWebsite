@@ -43,6 +43,7 @@ self.addEventListener('message', function (e) {
         } else if (inBitrate == 16) {
           resapledData = mapUint16ToFloat32Array(resapledData);
         }
+        console.log("Check p",p)
         var lowDat = lowSignal(resapledData, p);
         self.postMessage([clientId, lowDat]); //Send data back....
       });
