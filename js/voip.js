@@ -5,7 +5,7 @@ var mySampleRate = 12000; //Samplerate outgoing audio (common: 8000, 12000, 1600
 var myBitRate = 8; //8,16,32 - outgoing bitrate
 var myMinGain = 6 / 100; //min Audiolvl
 var micAccessAllowed = false; //Is set to true if user granted access
-var chunkSize = 512;
+var chunkSize = 1024;
 
 var downSampleWorker = new Worker('./js/voipWorker.js');
 var upSampleWorker = new Worker('./js/voipWorker.js');
