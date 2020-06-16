@@ -1,11 +1,11 @@
-var socketIO = io.connect('https://bcae.azurewebsites.net/');
+var socketIO = io.connect('https://circles-rtc.herokuapp.com/');
 
 var soundcardSampleRate = null; //Sample rate from the soundcard (is set at mic access)
 var mySampleRate = 12000; //Samplerate outgoing audio (common: 8000, 12000, 16000, 24000, 32000, 48000)
 var myBitRate = 16; //8,16,32 - outgoing bitrate
 var myMinGain = 6 / 100; //min Audiolvl
 var micAccessAllowed = false; //Is set to true if user granted access
-var chunkSize = 512;
+var chunkSize = 1024;
 
 var downSampleWorker = new Worker('./js/voipWorker.js');
 var upSampleWorker = new Worker('./js/voipWorker.js');
