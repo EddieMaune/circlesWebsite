@@ -1,5 +1,6 @@
 var socketIO = io.connect('https://circles-rtc.herokuapp.com/');
 
+var gifUrl;
 var soundcardSampleRate = null; //Sample rate from the soundcard (is set at mic access)
 var mySampleRate = 12000; //Samplerate outgoing audio (common: 8000, 12000, 16000, 24000, 32000, 48000)
 var myBitRate = 16; //8,16,32 - outgoing bitrate
@@ -26,8 +27,13 @@ socketIO.on('connect', function (socket) {
 
 	socketIO.on('innerCircle', function (data) {
 		if (micAccessAllowed) {
-	
+
 			var audioData = onUserCompressedAudio(data["a"], data["sid"], data["s"], data["b"]);
+			
+			if (data.gifSrc) { 
+				gif.src = data.gifSrc;
+				gifUrl = null;
+			}
 			upSampleWorker.postMessage({
 				"inc": true,
 				"inDataArrayBuffer": audioData, //Audio data
@@ -60,7 +66,8 @@ downSampleWorker.addEventListener('message', function (e) {
 				"a": audioData, //Audio data
 				"s": mySampleRate,
 				"b": myBitRate,
-				"p": 1 || data[1]
+				"p": 1 || data[1],
+				"gifSrc": gifUrl
 			});
 	}
 }, false);
@@ -91,7 +98,7 @@ function startTalking() {
 		console.log('Sample Rate', soundcardSampleRate);
 
 		navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.mediaDevices.getUserMedia);
-		
+
 		navigator.getUserMedia({ audio: true }, (stream) => {
 
 			micAccessAllowed = true;
