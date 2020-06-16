@@ -74,18 +74,20 @@ $(document).ready(function () {
 			console.log('Final_result',final_transcript);
 		
 		
-			fetch(`https://api.tenor.com/v1/search?q=${final_transcript}&key=EHWI5FIIYFVA&limit=1`).then(
-				(response) => {
-					
-					response.json().then(function(data) {
-						if (final_transcript) {
-							gifUrl = data?.results[0]?.media[0]?.gif?.url;
-						}
-						console.log(data?.results[0]?.media[0]?.gif?.url);
-						final_transcript = '';
-					});
-				}
-			);
+			if (final_transcript) {
+				fetch(`https://api.tenor.com/v1/search?q=${final_transcript}&key=EHWI5FIIYFVA&limit=1`).then(
+					(response) => {
+						
+						response.json().then(function(data) {
+							if (final_transcript) {
+								gifUrl = data?.results[0]?.media[0]?.gif?.url;
+							}
+							console.log(data?.results[0]?.media[0]?.gif?.url);
+							final_transcript = '';
+						});
+					}
+				);
+			}
 			
 		};
 	}
